@@ -1,0 +1,208 @@
+/* Reset default margin dan padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Video Background Styling */
+#backgroundVideo {
+    position: fixed;
+    z-index: -1;
+    left: 50%;
+    top: 50%;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Header untuk judul game */
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ffcc00;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 204, 0, 0.5);
+    letter-spacing: 2px;
+    animation: fadeIn 1s; /* Menambahkan animasi masuk */
+}
+
+h2, h3, h4, h5 {
+    margin: 15px 0;
+    color: #33ccff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6), 0 0 20px rgba(51, 204, 255, 0.5);
+    transition: color 0.3s ease;
+}
+
+h2:hover, h3:hover, h4:hover, h5:hover {
+    color: #ff6699; /* Warna berubah saat hover */
+}
+
+/* Kontainer utama */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 255, 204, 0.5);
+}
+
+/* Bahan-bahan */
+.ingredient {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px; /* Sudut melengkung untuk bahan */
+}
+
+.ingredient:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Bayangan lebih besar */
+}
+
+/* Drop Zone */
+#dropZone {
+    width: 550px;
+    height: 300px;
+    border: 2px dashed #aaa;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#dropZone.dragging {
+    background-color: rgba(200, 230, 255, 0.7);
+    border-color: #2196f3;
+    box-shadow: 0 0 15px rgba(0, 153, 255, 0.6);
+}
+
+#dropZone p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Gambar hasil nasi goreng */
+#resultImage {
+    max-width: 45%;
+    height: auto;
+    margin: 20px auto;
+    display: none;
+    transition: transform 0.5s ease;
+}
+
+#resultImage.shrink {
+    transform: scale(0.9);
+}
+
+/* Preview bahan-bahan yang dipilih */
+#selectedIngredientsContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Memungkinkan bahan-bahan mengalir */
+}
+
+#selectedIngredientsContainer img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+#selectedIngredientsContainer img:hover {
+    transform: scale(1.1);
+}
+
+/* Skor dan timer */
+#score, #timer {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+
+/* Input untuk nama pemain */
+input[type="text"] {
+    padding: 10px;
+    width: 250px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #64b5f6;
+    outline: none;
+}
+
+/* Animasi untuk judul */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsif untuk layar yang lebih kecil */
+@media (max-width: 768px) {
+    #dropZone {
+        width: 90%;
+        height: 250px;
+    }
+
+    .ingredient {
+        width: 80px;
+        height: 80px;
+    }
+
+    #resultImage {
+        max-width: 80%;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    input[type="text"] {
+        width: 80%;
+    }
+
+    #selectedIngredientsContainer img {
+        width: 50px;
+        height: 50px;
+    }
+}

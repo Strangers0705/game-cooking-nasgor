@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Nasi Goreng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Video awal untuk halaman form nama -->
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="images/background1.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video tag.
+    </video>
+
+    <!-- Audio untuk lagu yang diputar secara otomatis -->
+    <audio id="startAudio">
+        <source src="images/lagu1.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <div class="container text-center mt-5">
+        <h1>Cooking Nasgor</h1>
+
+        <!-- Tombol untuk memulai -->
+        <button id="playButton" class="btn btn-success mt-4" onclick="startGameSetup()">Play</button>
+
+        <!-- Form untuk memasukkan nama pemain -->
+        <div id="nameSection" class="mt-3" style="display: none;">
+            <h3>Masukkan Nama:</h3>
+            <input type="text" id="playerName" class="form-control w-50 mx-auto">
+            <button class="btn btn-primary mt-2" onclick="showReadyButton()">Mulai Permainan</button>
+        </div>
+
+        <!-- Tombol Siap -->
+        <div id="readySection" class="mt-3" style="display: none;">
+            <h3>Siap untuk memulai?</h3>
+            <button class="btn btn-warning" onclick="startCountdown()">Siap!</button>
+        </div>
+
+        <!-- Game Section -->
+        <div id="gameSection" class="mt-5" style="display: none;">
+            <h2 id="welcomeMessage"></h2>
+            <h4 id="orderMessage"></h4>
+            <div class="row">
+                <!-- Bahan-bahan -->
+                <div class="col-md-6 ingredients">
+                    <h4>Bahan-bahan:</h4>
+                    <div id="ingredientsContainer">
+                        <img src="images/nasi.png" alt="Nasi" class="ingredient" id="nasi" draggable="true" ondragstart="drag(event)">
+                        <img src="images/sayuran.png" alt="Sayuran" class="ingredient" id="sayuran" draggable="true" ondragstart="drag(event)">
+                        <img src="images/ayam.png" alt="Ayam" class="ingredient" id="ayam" draggable="true" ondragstart="drag(event)">
+                        <img src="images/telur.png" alt="Telur" class="ingredient" id="telur" draggable="true" ondragstart="drag(event)">
+                        <img src="images/seafood.png" alt="Seafood" class="ingredient" id="seafood" draggable="true" ondragstart="drag(event)">
+                    </div>
+                </div>
+
+                <!-- Hasil Nasi Goreng -->
+                <div class="col-md-6 output">
+                    <h4>Hasil Nasi Goreng:</h4>
+                    <div id="dropZone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <p id="placeholderText">Seret bahan ke sini untuk mulai membuat nasi goreng!</p>
+                        <div id="selectedIngredientsContainer" style="display: flex; justify-content: center;"></div>
+                        <img id="resultImage" src="" alt="Hasil Nasi Goreng" style="display: none;">
+                    </div>
+                    <p id="validationMessage"></p>
+                </div>
+            </div>
+
+            <!-- Skor dan Timer -->
+            <div class="mt-4">
+                <h4>Skor: <span id="score">0</span></h4>
+                <h4>Waktu: <span id="timer">60</span> detik</h4>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startGameSetup() {
+            // Memutar lagu saat tombol ditekan
+            const startAudio = document.getElementById('startAudio');
+            startAudio.play();
+
+            // Menyembunyikan tombol play
+            document.getElementById('playButton').style.display = 'none';
+
+            // Menampilkan form untuk memasukkan nama
+            document.getElementById('nameSection').style.display = 'block';
+        }
+
+        function showReadyButton() {
+            const playerName = document.getElementById('playerName').value;
+            if (playerName.trim() === '') {
+                alert('Nama tidak boleh kosong!');
+                return;
+            }
+
+            // Tampilkan pesan selamat datang
+            document.getElementById('welcomeMessage').innerText = `Selamat datang, ${playerName}!`;
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('readySection').style.display = 'block'; // Tampilkan tombol Siap
+        }
+
+        function startCountdown() {
+            document.getElementById('readySection').style.display = 'none'; // Sembunyikan tombol Siap
+            countdown(3); // Mulai hitung mundur dari 3
+        }
+
+        function countdown(seconds) {
+            if (seconds > 0) {
+                alert(seconds); // Tampilkan detik yang tersisa
+                setTimeout(() => countdown(seconds - 1), 1000);
+            } else {
+                startGame(); // Mulai permainan setelah hitung mundur selesai
+            }
+        }
+
+        function startGame() {
+            document.getElementById('gameSection').style.display = 'block';
+
+            // Mengganti video background saat permainan dimulai
+            document.getElementById('backgroundVideo').src = "images/background2.mp4";
+
+            // Putar musik latar
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            backgroundMusic.play();
+
+            // Menghasilkan pesanan dan memulai timer
+            generateRandomOrder();
+            startTimer();
+        }
+
+        // Tambahkan semua fungsi JavaScript sebelumnya di sini...
+        // (Menyalin fungsi yang ada di jawaban sebelumnya)
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
